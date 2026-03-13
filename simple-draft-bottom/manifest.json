@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Simple Draft Bottom",
-  "version": "1.3",
-  "description": "支持自由缩放、居中输入的底部沉浸式草稿箱",
+  "name": "极简悬浮草稿箱",
+  "version": "1.5",
+  "description": "居中书写，自由缩放，拖拽悬浮按钮展开",
   "permissions": ["storage"],
   "content_scripts": [
     {

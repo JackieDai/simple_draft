@@ -1,107 +1,105 @@
 :root {
-  --draft-bg: #ffffff;
-  --draft-text: #333333;
-  --draft-border: #eeeeee;
-  --draft-accent: #1a73e8;
-  --draft-side: rgba(0,0,0,0.02);
+  --d-bg: #ffffff;
+  --d-text: #333333;
+  --d-border: #eeeeee;
+  --d-accent: #1a73e8;
+  --d-side: rgba(0,0,0,0.02);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --draft-bg: #202124;
-    --draft-text: #e8eaed;
-    --draft-border: #3c4043;
-    --draft-accent: #8ab4f8;
-    --draft-side: rgba(255,255,255,0.03);
+    --d-bg: #202124;
+    --d-text: #e8eaed;
+    --d-border: #3c4043;
+    --d-accent: #8ab4f8;
+    --d-side: rgba(255,255,255,0.04);
   }
 }
 
+/* 悬浮按钮 (FAB) */
+#draft-fab {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 32px;
+  border-radius: 16px;
+  background: var(--d-accent);
+  color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: move;
+  z-index: 2147483647;
+  font-size: 12px;
+  font-weight: bold;
+  user-select: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#draft-fab.fab-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(20px);
+}
+
+/* 主面板 */
 #my-bottom-draft-root {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 2147483647;
-  background: var(--draft-bg);
-  color: var(--draft-text);
-  border-top: 1px solid var(--draft-border);
-  box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
+  z-index: 2147483646;
+  background: var(--d-bg);
+  color: var(--d-text);
+  border-top: 1px solid var(--d-border);
+  box-shadow: 0 -5px 30px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
+  transform: translateY(100%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
 }
 
-/* 顶部高度拉伸感应区 */
-.resizer-v {
-  height: 6px;
-  width: 100%;
-  cursor: ns-resize;
-  position: absolute;
-  top: -3px;
-  left: 0;
-  z-index: 10;
+#my-bottom-draft-root.active {
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
-.draft-main-layout {
-  display: flex;
-  flex: 1;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
+/* 缩放感应区 */
+.resizer-v { height: 8px; width: 100%; cursor: ns-resize; position: absolute; top: -4px; z-index: 10; }
+.resizer-h { width: 10px; height: 100%; cursor: ew-resize; position: absolute; top: 0; z-index: 10; }
+
+.draft-main-layout { display: flex; flex: 1; width: 100%; height: 100%; overflow: hidden; }
 
 .side-slot {
   flex-shrink: 0;
-  background: var(--draft-side);
+  background: var(--d-side);
   display: flex;
   flex-direction: column;
-  padding: 12px;
+  padding: 15px;
   box-sizing: border-box;
   position: relative;
 }
 
-/* 宽度拉伸感应区 */
-.resizer-h {
-  width: 8px;
-  height: 100%;
-  cursor: ew-resize;
-  position: absolute;
-  top: 0;
-  z-index: 10;
-}
-
 .center-editor {
   flex: 1;
-  background: var(--draft-bg);
-  border-left: 1px solid var(--draft-border);
-  border-right: 1px solid var(--draft-border);
+  background: var(--d-bg);
+  border-left: 1px solid var(--d-border);
+  border-right: 1px solid var(--d-border);
 }
 
 .draft-textarea {
-  width: 100%;
-  height: 100%;
-  border: none;
-  outline: none;
-  padding: 15px;
-  background: transparent;
-  color: inherit;
-  font-size: 15px;
-  line-height: 1.6;
-  resize: none;
-  box-sizing: border-box;
+  width: 100%; height: 100%; border: none; outline: none; padding: 20px;
+  background: transparent; color: inherit; font-size: 16px; line-height: 1.6;
+  resize: none; box-sizing: border-box;
 }
 
 .btn-group { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-
 .action-btn {
-  background: var(--draft-border);
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-  color: inherit;
-  transition: opacity 0.2s;
+  background: var(--d-border); border: none; padding: 8px; border-radius: 4px;
+  cursor: pointer; font-size: 12px; color: inherit; transition: background 0.2s;
 }
-
-.action-btn:hover { opacity: 0.8; }
+.action-btn:hover { filter: brightness(0.9); }
